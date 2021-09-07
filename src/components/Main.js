@@ -24,7 +24,7 @@ const Main = () => {
     todos={todos}
     setTodos={setTodos} />
    {/* <TodoList todos={todos} /> */}
-   <TodoList />
+   <TodoList text={inputText} />
   </>
  )
 }

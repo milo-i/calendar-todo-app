@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 const url = 'http://localhost:8000/todos';
 
-const FetchData = () => {
+const FetchData = ({ text }) => {
  // Min state för todos
  const [todos, setTodos] = useState([]);
 
@@ -17,7 +17,7 @@ const FetchData = () => {
 
  useEffect(() => {
   getTodos();
- }, [])
+ }, [text]) // lägger till text propen som hittas i Main komponenten. Så när textInput ändras så kommer min fetch att hämta datan från db 
 
  return (
   <div>
