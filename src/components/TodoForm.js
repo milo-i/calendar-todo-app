@@ -1,55 +1,50 @@
-import React, { useState } from 'react'
+import React from 'react'
+const randomKey = require('random-key');
 
-const TodoForm = (props) => {
- const { date } = props
- // My state for the input textbox
- const [todo, setTodo] = useState('')
- const [todos, setTodos] = useState([]) // Create an array that will contain all the todo objects
+const TodoForm = ({ date, inputText, setInputText, todos, setTodos }) => {
 
 
- // Creating my handle when user clicks the save todo button
- const handleSubmit = (e) => {
-  e.preventDefault()
-  if (todo) {
-   console.log('Skicka todo till db');
-   const todoInput = { todo, date }
+  // Skapar min handleSubmit funktion när knappen spara todo klickas
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (inputText) {
+      console.log('Skicka todo till db');
+      const todoInput = { id: randomKey.generateDigits(7), inputText, date }
 
-   const url = 'https://reqres.in/api/posts'
+      // Hanterar min Fetch POST request, den skickar in todo och datumet i objektet
+      const url = 'http://localhost:8000/add'
+      const request = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(todoInput)
+      };
+      fetch(url, request)
+        .then(response => response.json())
+        .then(data => alert(data.message, 'data RAD 23'));
 
-   const request = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(todoInput)
-   };
-
-   fetch(url, request)
-    .then(response => response.json())
-    .then(data => console.log(data, 'data RAD 27'));
-
-   setTodos((todos) => {
-    return [...todos, todoInput]
-   })
-   setTodo('')
-  } else {
-   alert('Fyll i en todo')
+      setTodos((todo) => {
+        return [...todos, todoInput]
+      })
+      setInputText('')
+    } else {
+      alert('Fyll i en todo')
+    }
   }
- }
 
-
- return (
-  <article>
-   <form>
-    <input
-     type="text"
-     name="todo"
-     id="todo"
-     value={todo}
-     onChange={(e) => setTodo(e.target.value)}
-     placeholder='Fyll i en todo...' />
-   </form>
-   <button type="submit" onClick={handleSubmit}>Spara todo</button>
-  </article>
- )
+  return (
+    <article>
+      <form>
+        <input
+          type="text"
+          name="todo"
+          id="todo"
+          value={inputText}
+          onChange={(e) => setInputText(e.target.value)}
+          placeholder='Fyll i en todo...' />
+      </form>
+      <button type="submit" onClick={handleSubmit}>Spara todo</button>
+    </article>
+  )
 }
 
 export default TodoForm

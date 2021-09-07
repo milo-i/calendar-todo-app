@@ -1,10 +1,16 @@
 import React from 'react'
+// import Todos from './Todos'
+import FetchData from './FetchData'
 
 const TodoList = () => {
  return (
-  <div>
-
-  </div>
+  <>
+   {/* {console.log(todos)} */}
+   <FetchData />
+   {/* {todos.map((todo) => (
+    <Todos text={todo.inputText} date={todo.date} key={todo.id} />
+   ))} */}
+  </>
  )
 }
 
