@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import Todos from './Todos';
 
 const url = 'http://localhost:8000/todos';
 
@@ -20,15 +21,7 @@ const FetchData = ({ text }) => {
   return (
     <div>
       <ul>
-        {todos.map(item => {
-          const { id, todo, date } = item;
-          return (
-            <li key={id}>
-              {todo}
-              {date}</li>
-          )
-        })
-        }
+        <Todos todos={todos} />
       </ul>
     </div>
   )

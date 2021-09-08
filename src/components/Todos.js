@@ -1,12 +1,21 @@
 import React from 'react'
 
-const Todos = ({ text, date, id }) => {
+const Todos = ({ todos }) => {
+
  return (
-  <div>
-   <li key={id}>{`${text} ${date}`}</li>
-   <button>Klar</button>
-   <button>Ta bort</button>
-  </div>
+
+  todos.map(item => {
+   const { id, todo, date, completed } = item;
+
+   return (
+    <li key={id}>
+     {`${todo}
+              ${date}
+              ${completed}`}
+     <button>Klar</button>
+    </li>
+   )
+  })
  )
 }
 

@@ -9,7 +9,7 @@ const TodoForm = ({ date, inputText, setInputText, todos, setTodos }) => {
     e.preventDefault()
     if (inputText) {
       console.log('Skicka todo till db');
-      const todoInput = { id: randomKey.generateDigits(7), inputText, date }
+      const todoInput = { id: randomKey.generateDigits(7), inputText, date, completed: false }
 
       // Hanterar min Fetch POST request, den skickar in todo och datumet i objektet
       const url = 'http://localhost:8000/add'
