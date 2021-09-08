@@ -12,6 +12,7 @@ const Main = () => {
  const [inputText, setInputText] = useState('')
  const [todos, setTodos] = useState([]) // Skapa en array som kommer innehålla alla todo objekt
 
+
  return (
   <>
    <Calendar
