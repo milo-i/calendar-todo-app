@@ -16,12 +16,13 @@ const FetchData = ({ text }) => {
 
   useEffect(() => {
     getTodos();
-  }, [text]) // lägger till text propen som hittas i Main komponenten. Så när textInput ändras så kommer min fetch att hämta datan från db 
+
+  }, [text]) // lägger till text propen som hittas i Main komponenten. Så när textInput ändras så kommer min fetch att hämta datan från db
 
   return (
     <div>
       <ul>
-        <Todos todos={todos} />
+        <Todos todos={todos} getTodos={getTodos} />
       </ul>
     </div>
   )
