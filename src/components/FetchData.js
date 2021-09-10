@@ -10,7 +10,8 @@ const FetchData = ({ text }) => {
   const getTodos = async () => {
     const response = await fetch(url);
     const todos = await response.json();
-    setTodos(todos)
+    const sortedTodos = todos.sort((a, b) => new Date(a.date) - new Date(b.date))
+    setTodos(sortedTodos)
   }
 
   useEffect(() => {
