@@ -11,7 +11,6 @@ const FetchData = ({ text }) => {
     const response = await fetch(url);
     const todos = await response.json();
     setTodos(todos)
-    console.log(todos);
   }
 
   useEffect(() => {

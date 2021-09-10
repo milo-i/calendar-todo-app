@@ -7,6 +7,7 @@ const TodoForm = ({ date, inputText, setInputText, todos, setTodos }) => {
   // Skapar min handleSubmit funktion när knappen spara todo klickas
   const handleSubmit = (e) => {
     e.preventDefault()
+    date = new Intl.DateTimeFormat('sv-SE').format(date)
     if (inputText) {
       console.log('Skicka todo till db');
       const todoInput = { id: randomKey.generateDigits(7), inputText, date, completed: false }
@@ -20,7 +21,7 @@ const TodoForm = ({ date, inputText, setInputText, todos, setTodos }) => {
       };
       fetch(url, request)
         .then(response => response.json())
-        .then(data => alert(data.message, 'data RAD 23'));
+        .then(data => alert(data.message));
 
       setTodos((todo) => {
         return [...todos, todoInput]
