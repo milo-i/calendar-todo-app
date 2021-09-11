@@ -1,10 +1,11 @@
+import '../index.css'
 import React, { useState, useEffect } from 'react'
 import Calendar from 'react-calendar'
 import TodoForm from './TodoForm'
 import TodoList from './TodoList'
-import OnClickDayTodos from './OnClickDayTodos'
+import TodoTodayList from './TodoTodayList'
 import 'react-calendar/dist/Calendar.css';
-
+const randomKey = require('random-key');
 
 const Main = () => {
  // Tid states
@@ -15,48 +16,41 @@ const Main = () => {
  // State som skickas in till OnClickDayTodos
  const [todoToday, setTodoToday] = useState([]);
  const [clickedDate, setClickedDate] = useState(false);
+ const [displayTodo, setDisplayTodo] = useState([]);
 
  const url = 'http://localhost:8000/todos';
 
-
  const clickDayHandler = (value) => {
   const formatedDate = new Intl.DateTimeFormat('sv-SE').format(value);
-  // console.log(formatedDate, 'klickad dag');
-  // console.log(value, 'VALUE');
+  // console.log(typeof displayTodo, 'displayTodo');
 
+  for (let date in todoToday) {
+   // console.log(todoToday[date].date, 'rad 27');
+   if (formatedDate === todoToday[date].date) {
+    // console.log('matchat datum');
+    // console.log(todoToday[date].todo, 'rad 31');
+    let todo = todoToday[date].todo
+    setDisplayTodo((todayTodo => {
+     return [...displayTodo, { id: randomKey.generate(5), ...todayTodo, todo }]
+    }))
+    setClickedDate(true);
+    console.log(todoToday, 'rad 34');
+    console.log(displayTodo, 'rad 35');
+
+   }
+  }
+ }
+
+ useEffect(() => {
   const getTodo = async () => {
    const response = await fetch(url);
-   const todos = await response.json();
-
-   // console.log(todos, 'rad 27');
-
-   for (let date in todos) {
-    // console.log(todos[date].date, 'rad 33');
-    if (formatedDate === todos[date].date) {
-     console.log('matchat datum');
-     console.log(todos[date].todo, 'rad 36');
-     setTodoToday({ todo: todos[date].todo })
-     setClickedDate(true);
-     < OnClickDayTodos todosOnThisDay={todoToday} />
-
-     // console.log(typeof todoToday, 'rad 38');
-     console.log(todoToday, 'rad 39');
-    }
-   }
-
+   const todosToday = await response.json();
+   setTodoToday(todosToday);
   }
   getTodo();
 
-  // < OnClickDayTodos todosOnThisDay={todoToday} />
-
- }
-
-
- useEffect(() => {
-  clickDayHandler()
-  setClickedDate(false);
+  setClickedDate(false)
  }, [])
-
 
  return (
   <>
@@ -71,9 +65,9 @@ const Main = () => {
     todos={todos}
     setTodos={setTodos} />
    <TodoList text={inputText} />
-   {/* <OnClickDayTodos todoToday={todoToday} /> */}
+   {clickedDate ? <TodoTodayList todosOnThisDay={displayTodo} /> : null}
   </>
  )
-}
 
+}
 export default Main
