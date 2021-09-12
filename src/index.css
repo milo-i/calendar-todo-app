@@ -4,9 +4,9 @@ ul {
   padding: 0;
 }
 
-.content {
+.content-of-tile {
   /* font-size: 30px; */
-  background: pink
+  background: pink;
   /* color: white; */
 }
 
