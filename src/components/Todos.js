@@ -8,7 +8,7 @@ const Todos = ({ todos, getTodos }) => {
     todos.map(todo => {
       if (e.target.id === todo.id) {
 
-        const url = 'http://localhost:8000/completed'
+        const url = 'https://react-calendar2021.herokuapp.com//completed'
         const request = {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
