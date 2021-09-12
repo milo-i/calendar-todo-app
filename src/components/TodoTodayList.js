@@ -2,14 +2,10 @@ import React, { useEffect } from 'react'
 import OnClickDayTodos from './OnClickDayTodos'
 
 const TodoTodayList = ({ displayTodo }) => {
- // const { dateClicked } = todosOnThisDay;
  console.log(displayTodo, 'RAD 6 TodoTodayList');
- // console.log(displayTodo[0].dateClicked, 'RADDDDDDDD 7');
 
  useEffect(() => {
   console.log('render');
-
-
  }, [displayTodo])
 
  return (

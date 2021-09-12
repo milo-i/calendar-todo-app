@@ -17,33 +17,37 @@ const Main = () => {
  const [todoToday, setTodoToday] = useState([]);
  const [clickedDate, setClickedDate] = useState(false);
  const [displayTodo, setDisplayTodo] = useState([]);
+ // State for my classname
+ const [classColor, setClassColor] = useState('');
 
 
  const url = 'http://localhost:8000/todos';
 
- const clickDayHandler = (value) => {
+ const clickDayHandler = (value, e) => {
+  console.log(e);
+  console.log(e.target.className);
+  console.log(e.target);
   const formatedDate = new Intl.DateTimeFormat('sv-SE').format(value);
-  // console.log(typeof displayTodo, 'displayTodo');
   setDisplayTodo('');
+  setClickedDate(false);
 
 
   for (let date in todoToday) {
-   // console.log(todoToday[date].date, 'rad 27');
    if (formatedDate === todoToday[date].date) {
-    // console.log('matchat datum');
-    // console.log(todoToday[date].todo, 'rad 31');
     let todo = todoToday[date].todo
     let dateClicked = todoToday[date].date
     setDisplayTodo((todayTodo => {
      return [...todayTodo, { dateClicked, id: randomKey.generate(5), todo }]
     }))
     setClickedDate(true);
-    // console.log(todoToday, 'rad 34');
-    // console.log(displayTodo, 'rad 35');
-
    }
   }
  }
+
+ // const setClass = (date) => {
+ //  console.log('selected');
+ //  setClassColor('content');
+ // }
 
  const getTodo = async () => {
   const response = await fetch(url);
@@ -53,7 +57,6 @@ const Main = () => {
  useEffect(() => {
   getTodo();
 
-  setClickedDate(false)
  }, [])
 
  return (
@@ -61,15 +64,32 @@ const Main = () => {
    <Calendar
     value={date}
     onChange={setDate}
-    onClickDay={clickDayHandler} />
+    onClickDay={clickDayHandler}
+    tileClassName={classColor}
+   //   ({  }) => {
+   //  if (shouldDateBeSelected(date)) {
+   //   return 'content';
+   //  }
+   //  return null;
+   // }}
+   /* https://github.com/wojtekmaj/react-calendar/issues/271
+   https://www.gitmemory.com/issue/wojtekmaj/react-calendar/359/615166079
+   https://stackoverflow.com/questions/60446117/how-to-mark-particular-dates-in-react-calender
+   mark dates with css in react-calendar
+   https://create-react-app.dev/docs/adding-a-stylesheet/
+   */
+   />
    <TodoForm
     date={date}
     inputText={inputText}
     setInputText={setInputText}
     todos={todos}
-    setTodos={setTodos} />
-   <TodoList text={inputText} />
-   {clickedDate ? <TodoTodayList getTodo={getTodo} displayTodo={displayTodo} /> : null}
+    setTodos={setTodos}
+    setClassColor={setClassColor}
+   />
+   <TodoList text={inputText}
+   />
+   {clickedDate ? <TodoTodayList displayTodo={displayTodo} /> : null}
   </>
  )
 

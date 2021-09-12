@@ -34,13 +34,16 @@ const Todos = ({ todos, getTodos }) => {
     todos.map(item => {
       const { id, todo, date, completed } = item;
 
+
       return (
+
         <li key={id}>
-          {`${todo}
-       ${date}
+          Min todo: {`${todo} ||| Datum: 
+       ${date} ||| Slutförd: 
        ${completed ? 'Klar' : 'Ej klar'}`}
           <button id={id} onClick={todoDoneHandler}>{`${completed ? 'Klar' : 'Ej klar'}`}</button>
         </li>
+
       )
     })
   )
