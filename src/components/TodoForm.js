@@ -15,7 +15,7 @@ const TodoForm = ({ date, inputText, setInputText, todos, setTodos, setClassColo
       const todoInput = { id: randomKey.generateDigits(7), inputText, date, completed: false }
       // setClassColor('content')
       // Hanterar min Fetch POST request, den skickar in todo och datumet i objektet
-      const url = 'https://react-calendar2021.herokuapp.com//add'
+      const url = 'https://react-calendar2021.herokuapp.com/add'
       const request = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
