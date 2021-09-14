@@ -22,7 +22,7 @@ const Main = () => {
    const [markedDates, setMarkedDates] = useState([]);
 
 
-   const url = 'https://react-calendar2021.herokuapp.com/todos';
+   const url = 'https://cors-anywhere.herokuapp.com/https://react-calendar2021.herokuapp.com/todos';
 
    const clickDayHandler = (value) => {
       const formatedDate = new Intl.DateTimeFormat('sv-SE').format(value);
