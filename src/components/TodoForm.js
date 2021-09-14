@@ -1,14 +1,12 @@
 import React from 'react'
 const randomKey = require('random-key');
 
-const TodoForm = ({ date, inputText, setInputText, todos, setTodos, setClassColor }) => {
+const TodoForm = ({ date, inputText, setInputText, setTodos }) => {
 
 
   // Skapar min handleSubmit funktion när knappen spara todo klickas
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(date);
-    console.log(typeof date);
 
     date = new Intl.DateTimeFormat('sv-SE').format(date)
     if (inputText) {
@@ -25,9 +23,10 @@ const TodoForm = ({ date, inputText, setInputText, todos, setTodos, setClassColo
         .then(response => response.json())
         .then(data => alert(data.message));
 
-      setTodos((todo) => {
+      setTodos((todos) => {
         return [...todos, todoInput]
       })
+
       setInputText('')
     } else {
       alert('Fyll i en todo')
