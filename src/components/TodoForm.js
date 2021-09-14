@@ -7,15 +7,13 @@ const TodoForm = ({ date, inputText, setInputText, todos, setTodos, setClassColo
   // Skapar min handleSubmit funktion när knappen spara todo klickas
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(date);
-    console.log(typeof date);
 
     date = new Intl.DateTimeFormat('sv-SE').format(date)
     if (inputText) {
       const todoInput = { id: randomKey.generateDigits(7), inputText, date, completed: false }
       // setClassColor('content')
       // Hanterar min Fetch POST request, den skickar in todo och datumet i objektet
-      const url = 'https://react-calendar2021.herokuapp.com/add'
+      const url = 'http://localhost:8000/add'
       const request = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -28,6 +26,8 @@ const TodoForm = ({ date, inputText, setInputText, todos, setTodos, setClassColo
       setTodos((todo) => {
         return [...todos, todoInput]
       })
+      console.log(todos);
+
       setInputText('')
     } else {
       alert('Fyll i en todo')
