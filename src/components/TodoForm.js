@@ -1,7 +1,7 @@
 import React from 'react'
 const randomKey = require('random-key');
 
-const TodoForm = ({ date, inputText, setInputText, todos, setTodos, setClassColor }) => {
+const TodoForm = ({ date, inputText, setInputText, setTodos }) => {
 
 
   // Skapar min handleSubmit funktion när knappen spara todo klickas
@@ -13,7 +13,7 @@ const TodoForm = ({ date, inputText, setInputText, todos, setTodos, setClassColo
       const todoInput = { id: randomKey.generateDigits(7), inputText, date, completed: false }
       // setClassColor('content')
       // Hanterar min Fetch POST request, den skickar in todo och datumet i objektet
-      const url = 'http://localhost:8000/add'
+      const url = 'https://react-calendar2021.herokuapp.com/add'
       const request = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -23,10 +23,9 @@ const TodoForm = ({ date, inputText, setInputText, todos, setTodos, setClassColo
         .then(response => response.json())
         .then(data => alert(data.message));
 
-      setTodos((todo) => {
+      setTodos((todos) => {
         return [...todos, todoInput]
       })
-      console.log(todos);
 
       setInputText('')
     } else {

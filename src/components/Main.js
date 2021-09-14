@@ -19,20 +19,15 @@ const Main = () => {
    const [todoToday, setTodoToday] = useState([]);
    const [clickedDate, setClickedDate] = useState(false);
    const [displayTodo, setDisplayTodo] = useState([]);
-   // State for my classname
-   // const [classColor, setClassColor] = useState('');
+   const [markedDates, setMarkedDates] = useState([]);
 
 
-   const url = 'http://localhost:8000/todos';
+   const url = 'https://react-calendar2021.herokuapp.com/todos';
 
-   const clickDayHandler = (value, e) => {
-      // console.log(e);
-      // console.log(e.target.className, 'className');
-      // console.log(e.target);
+   const clickDayHandler = (value) => {
       const formatedDate = new Intl.DateTimeFormat('sv-SE').format(value);
       setDisplayTodo('');
       setClickedDate(false);
-
 
       for (let date in todoToday) {
          if (formatedDate === todoToday[date].date) {
@@ -42,7 +37,6 @@ const Main = () => {
                return [...todayTodo, { dateClicked, id: randomKey.generate(5), todo }]
             }))
             setClickedDate(true);
-            // setClassColor('content-of-tile')
          }
       }
    }
@@ -52,24 +46,28 @@ const Main = () => {
       const todosToday = await response.json();
       setTodoToday(todosToday);
    }
+
+   const getDatesFromTodos = async () => {
+      const response = await fetch(url);
+      const todos = await response.json();
+
+      for (let dateMarked in todos) {
+         setMarkedDates(markedDates => {
+            return [...markedDates, todos[dateMarked].date]
+         })
+      }
+   }
+
    useEffect(() => {
       getTodo();
-
    }, [])
 
-   // const getDatesFromTodos = async () => {
-   //    const response = await fetch(url);
-   //    const todos = await response.json();
-   //    const sortedTodos = todos.sort((a, b) => new Date(a.date) - new Date(b.date))
-   //    setTodos(sortedTodos)
-   // }
+   useEffect(() => {
+
+      getDatesFromTodos();
+   }, [todos])
 
 
-   const mark = [
-      '14-09-2021',
-      '22-09-2021',
-      '10-10-2021'
-   ]
 
    return (
       <>
@@ -77,29 +75,16 @@ const Main = () => {
             value={date}
             onChange={setDate}
             onClickDay={clickDayHandler}
-            tileContent={({ date, view }) => {
-               if (mark.find(x => x === moment(date).format("DD-MM-YYYY"))) {
-                  return 'x'
+            // tileContent={({ date }) => {
+            //    if (markedDates.find(x => x === moment(date).format("YYYY-MM-DD"))) {
+            //       return 'x'
+            //    }
+            // }}
+            tileClassName={({ date }) => {
+               if (markedDates.find(x => x === moment(date).format("YYYY-MM-DD"))) {
+                  return 'content'
                }
             }}
-         // tileContent={
-
-         //    ({ date, view }) => view === 'month' && date.getDay() === 0 ? <p>It's Sunday!</p> : null
-
-         //    // ({ date, view }) => view === 'month' && date.getDay() === 6 ? <p>It's Sunday!</p> : null
-         // }
-
-
-
-
-         // tileClassName={shouldDateBeSelected}
-
-         //  ({ date }) => {
-         //  if (shouldDateBeSelected(date)) {
-         //   return 'content-of-tile';
-         //  }
-         //  return null;
-         // }}
 
          />
          <TodoForm

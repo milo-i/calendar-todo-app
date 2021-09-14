@@ -1,10 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import OnClickDayTodos from './OnClickDayTodos'
 
 const TodoTodayList = ({ displayTodo }) => {
-
- useEffect(() => {
- }, [displayTodo])
 
  return (
   <div>

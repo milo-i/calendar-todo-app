@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Todos from './Todos';
 
-const url = 'http://localhost:8000/todos';
+const url = 'https://react-calendar2021.herokuapp.com/todos';
 
 const FetchData = ({ text }) => {
   // Min state för todos

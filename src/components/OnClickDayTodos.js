@@ -12,6 +12,5 @@ const OnClickDayTodos = ({ displayTodo }) => {
  )
 }
 
-
 export default OnClickDayTodos
 
