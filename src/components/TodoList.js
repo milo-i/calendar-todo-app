@@ -1,7 +1,9 @@
-import React from 'react'
+
+
 import FetchData from './FetchData'
 
 const TodoList = ({ text }) => {
+
  return (
   <>
    <FetchData text={text} />

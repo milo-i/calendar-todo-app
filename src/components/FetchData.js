@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import Todos from './Todos';
 
 const url = 'https://react-calendar2021.herokuapp.com/todos';

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
 const Todos = ({ todos, getTodos }) => {
   const [clickedBtn, setclickedBtn] = useState(false); /* Sätter en state för knapparna. Så när knappen "Klar" klickas så ändras false till true. Så 
@@ -28,7 +28,7 @@ const Todos = ({ todos, getTodos }) => {
     getTodos();
     setclickedBtn(false) // Se kommentar i början av Todos komponenten, rad 4 och 5.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [clickedBtn])
+  }, [clickedBtn, todos]) // KOLLA HÄR
 
   return (
     todos.map(item => {
@@ -41,7 +41,7 @@ const Todos = ({ todos, getTodos }) => {
           Min todo: {`${todo} ||| Datum: 
        ${date} ||| Slutförd: 
        ${completed ? 'Klar' : 'Ej klar'}`}
-          <button id={id} onClick={todoDoneHandler}>{`${completed ? 'Klar' : 'Ej klar'}`}</button>
+          <button id={id} onClick={todoDoneHandler}>{`${completed ? 'Ej klar' : 'Klar'}`}</button>
         </li>
 
       )

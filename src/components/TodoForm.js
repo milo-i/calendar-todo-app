@@ -1,4 +1,4 @@
-import React from 'react'
+
 const randomKey = require('random-key');
 
 const TodoForm = ({ date, inputText, setInputText, setTodos }) => {

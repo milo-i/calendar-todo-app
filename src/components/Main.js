@@ -1,6 +1,6 @@
 import '../index.css'
 import moment from 'moment'
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import Calendar from 'react-calendar'
 import TodoForm from './TodoForm'
 import TodoList from './TodoList'
@@ -60,7 +60,7 @@ const Main = () => {
 
    useEffect(() => {
       getTodo();
-   }, [])
+   }, [todos])
 
    useEffect(() => {
 

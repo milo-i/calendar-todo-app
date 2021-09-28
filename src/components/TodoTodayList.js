@@ -1,4 +1,3 @@
-import React from 'react'
 import OnClickDayTodos from './OnClickDayTodos'
 
 const TodoTodayList = ({ displayTodo }) => {
